@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { state, style, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +12,10 @@ import { state, style, trigger } from '@angular/animations';
       })),
       state('highlighted', style({
         backgroundColor: 'blue',
-        transform: 'translateX(100px)'
-      }))
+        transform: 'translateX(300px)'
+      })),
+      transition('normal => highlighted', animate(300)),
+      transition('highlighted => normal', animate(600))
     ])
   ]
 })
@@ -21,6 +23,10 @@ export class AppComponent {
 
   state = 'normal';
   list = [ 'Milk', 'Sugar', 'Bread' ];
+
+  onAnimate() {
+    this.state === 'normal' ? this.state = 'highlighted' : this.state = 'normal';
+  }
 
   onAdd(item) {
     this.list.push(item);
